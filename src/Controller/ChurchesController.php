@@ -74,4 +74,44 @@ class ChurchesController extends AbstractController
         return $this->render('churches/show.html.twig', array('title' => 'Church Page', 'church' => $church));
 
     }
+
+    #[Route('/churches/edit/{id}', name: 'edit_church')]
+    public function edit($id, Request $request): Response
+    {
+        $repository = $this->em->getRepository(Church::class);
+        $church = $repository->find($id);
+
+        $form = $this->createForm(ChurchFormType::class, $church);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $church->setName($form->get('name')->getData());
+            $church->setWebsite($form->get('website')->getData());
+            $church->setAddress($form->get('address')->getData());
+
+            $this->em->flush();
+            return $this->redirectToRoute('app_churches');
+        }
+
+
+        return $this->render('churches/edit.html.twig', array('title' => 'Church Page', 
+            'church' => $church, 
+            'form' => $form->createView()));
+    }
+
+
+    #[Route('/churches/delete/{id}', methods: ['GET', 'DELETE'], name: 'delete_church')]
+    public function delete($id): Response{
+
+        $repository = $this->em->getRepository(Church::class);
+        $church = $repository->find($id);
+
+        $this->em->remove($church);
+        $this->em->flush();
+
+        return $this->redirectToRoute('app_churches');
+
+    }
 }

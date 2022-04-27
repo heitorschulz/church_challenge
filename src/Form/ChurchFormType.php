@@ -18,21 +18,24 @@ class ChurchFormType extends AbstractType
                     'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl', 
                     'placeholder' => 'Enter church name...'
                 ),
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->add('website', TextType::class, [
                 'attr' => array(
                     'class' => 'bg-transparent block mt-10 border-b-2 w-full h-20 text-6xl', 
                     'placeholder' => 'Enter church website...'
                 ),
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->add('address', TextType::class, [
                 'attr' => array(
                     'class' => 'bg-transparent block  mt-10 border-b-2 w-full h-20 text-6xl', 
                     'placeholder' => 'Enter church address...'
                 ),
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
         ;
     }

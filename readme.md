@@ -137,3 +137,8 @@ symfony console make:form ChurchFormType Church
 
 composer require symfony/mime
 
+
+npm install --save-dev @fortawesome/fontawesome-free
+
+
+composer require symfony/validator doctrine/annotations

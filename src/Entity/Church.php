@@ -6,6 +6,7 @@ use App\Repository\ChurchRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ChurchRepository::class)]
 class Church
@@ -16,11 +17,23 @@ class Church
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=3)
+    */
     private $website;
 
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     #[ORM\Column(type: 'string', length: 255)]
     private $address;
 
@@ -42,7 +55,7 @@ class Church
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -54,7 +67,7 @@ class Church
         return $this->website;
     }
 
-    public function setWebsite(string $website): self
+    public function setWebsite(?string $website): self
     {
         $this->website = $website;
 
@@ -66,7 +79,7 @@ class Church
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
@@ -99,7 +112,6 @@ class Church
                 $member->setChurch(null);
             }
         }
-
         return $this;
     }
 }
