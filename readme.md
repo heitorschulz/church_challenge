@@ -113,3 +113,13 @@ npm run dev
 composer require symfony/asset
 
 npm run watch
+
+
+
+npm install -D tailwindcss postcss-loader purgecss-webpack-plugin glob-all path
+
+configurar o postcss para requisitar o tailwindcss
+
+npx tailwindcss init -p
+
+npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css
