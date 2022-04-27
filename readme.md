@@ -100,3 +100,16 @@ symfony console doctrine:migrations:migrate
 composer require --dev doctrine/doctrine-fixtures-bundle
 
 symfony console doctrine:fixtures:load
+
+
+npm
+
+composer require symfony/webpack-encore-bundle
+
+npm install
+
+npm run dev
+
+composer require symfony/asset
+
+npm run watch
