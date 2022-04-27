@@ -79,12 +79,16 @@ symfony console doctrine:database:create
 
 symfony console make:entity Church
 
+Explicar a escolha dos campos
+
 symfony console make:entity Member
+
+Explicar a escolha dos campos
 
 
 symfony console make:entity Member
     church
-    ManyToMany or ManyToOne
+    ManyToMany or ManyToOne (explicar por que foi escolhido ManyToOne)
     Church
     members
     yes
