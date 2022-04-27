@@ -122,4 +122,18 @@ configurar o postcss para requisitar o tailwindcss
 
 npx tailwindcss init -p
 
-npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css
+npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css --watch
+
+
+npm install file-loader --save-dev
+
+npm install --save-dev postcss-import
+npm install --save-dev autoprefixer
+
+
+composer require symfony/form
+
+symfony console make:form ChurchFormType Church
+
+composer require symfony/mime
+
