@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Churches Page
+{% endblock %}
+
+{% block body %}
+    <h1>
+        {{title}}
+    </h1>
+
+    {% for church in churches %}
+        <li>{{ church }}</li>
+    {% endfor %}
+{% endblock %}

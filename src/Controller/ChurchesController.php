@@ -11,9 +11,14 @@ class ChurchesController extends AbstractController
     #[Route('/churches', name: 'app_churches')]
     public function index(): Response
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ChurchesController.php',
-        ]);
+
+        $churches = ['Igreja 1', 'Igreja 2'];
+
+        return $this->render('index.html.twig', array('title' => 'Churches Page', 'churches' => $churches));
+
+        // return $this->json([
+        //     'message' => 'Welcome to your new controller!',
+        //     'path' => 'src/Controller/ChurchesController.php',
+        // ]);
     }
 }

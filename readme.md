@@ -75,3 +75,24 @@ in .env file:
 #################
 
 symfony console doctrine:database:create
+
+
+symfony console make:entity Church
+
+symfony console make:entity Member
+
+
+symfony console make:entity Member
+    church
+    ManyToMany or ManyToOne
+    Church
+    members
+    yes
+
+symfony console make:migration
+symfony console doctrine:migrations:migrate
+
+
+composer require --dev doctrine/doctrine-fixtures-bundle
+
+symfony console doctrine:fixtures:load
