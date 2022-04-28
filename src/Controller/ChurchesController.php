@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Church;
+use App\Entity\Member;
 use App\Form\ChurchFormType;
+use App\Form\MemberFormType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
@@ -71,6 +73,9 @@ class ChurchesController extends AbstractController
         $repository = $this->em->getRepository(Church::class);
         $church = $repository->find($id);
 
+        // $members = $church->getMembers()->getValues();
+        // dd($members);
+
         return $this->render('churches/show.html.twig', array('title' => 'Church Page', 'church' => $church));
 
     }
@@ -114,4 +119,58 @@ class ChurchesController extends AbstractController
         return $this->redirectToRoute('app_churches');
 
     }
+
+    #[Route('/churches/{id}/addmember', name: 'add_member')]
+    public function addMember($id, Request $request): Response
+    {
+
+        $repositoryChurch = $this->em->getRepository(Church::class); 
+        $church = $repositoryChurch->find($id);
+
+        $member = new Member();
+        $member->setChurch($church);
+
+        $form = $this->createForm(MemberFormType::class, $member);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $newMember = $form->getData();
+
+            $this->em->persist($newMember);
+            $this->em->flush();
+
+            // dd($newChurch);
+            // exit;
+
+            return $this->redirectToRoute('show_churches',['id' => $church->getId()]);
+        }
+
+
+        return $this->render('members/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+
+        // $church = new Church();
+        // $form = $this->createForm(ChurchFormType::class, $church);
+
+        // $form->handleRequest($request);
+        // if($form->isSubmitted() && $form->isValid()){
+        //     $newChurch = $form->getData();
+
+        //     $this->em->persist($newChurch);
+        //     $this->em->flush();
+
+        //     // dd($newChurch);
+        //     // exit;
+
+        //     return $this->redirectToRoute('app_churches');
+        // }
+
+
+        // return $this->render('churches/create.html.twig', [
+        //     'form' => $form->createView()
+        // ]);
+    }
+
 }

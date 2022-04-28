@@ -48,37 +48,4 @@
 		</div>
 	</div>
 
-
-	<div
-		class="md:grid lg:grid-cols-3 gap-20 w-4/5 mx-auto py-15 ">
-		<!-- Review Item -->
-
-
-		{% for member in members %}
-			<div
-				class="text-center pt-8 pb-4">
-				{# <img
-								                    src="https://admin.inpeaceapp.com/app/img/inpeace_logo.png"
-								                    alt=""
-								                    class="shadow-xl rounded-md"
-								                /> #}
-
-				<h2 class="text-gray-700 font-bold text-3xl py-2">
-					{{ member.name }}
-				</h2>
-
-				{# <span class="text-gray-500">
-								                    Website: <span class="italic text-sm text-gray-800"> <a href="http://{{ church.website }}">{{ church.website }}</a>
-								                </span>
-								
-								                <p class="text-base text-gray-700 pt-4 pb-10 leading-8 font-light">
-								                    {{ church.address }}
-								                </p>
-								
-								                <a href="/churches/{{ church.id }}" class="uppercase border border-gray-500 text-gray-600 text-lg py-4 px-12 rounded transition transition-all hover:bg-gray-800 hover:text-white">
-								                    View More
-								                </a> #}
-			</div>
-		{% endfor %}
-	</div>
 {% endblock %}

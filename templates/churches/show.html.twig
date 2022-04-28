@@ -1,43 +1,100 @@
 {% extends "./base.html.twig" %}
 
 {% block body %}
-    <div class="sm:w-3/5 w-4/5 mx-auto">
-        <h1 class="pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center">
-            {{ church.name }}
-        </h1>
+	<div class="sm:w-3/5 w-4/5 mx-auto">
 
-        <div class="py-10 text-center">
-            {# <div class="inline-block sm:pt-1">
-                <h2 class="font-bold">
-                    Created by: Heitor
-                </h2>
+		<h1 class="pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center">
+			{{ church.name }}
+		</h1>
 
-                <p class="text-sm text-gray-600">
-                    28-01-2022 4 min. read
-                </p>
-            </div> #}
-        </div>
+		<div class="flex justify-end ...">
+			<div>
+				<a href="/churches/edit/{{ church.id }}" class="bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300">
+					<i class="fa fa-edit"></i>
+					Edit Church
+				</a>
+			</div>
+			<div>
+				<a href="/churches/delete/{{ church.id }}" class="bg-red-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-red-300">
+					<i class="fa fa-trash"></i>
+					Delete Church
+				</a>
+			</div>
+		</div>
 
-        <img
-            src="https://admin.inpeaceapp.com/app/img/inpeace_logo.png"
-            class="rounded-xl w-full shadow-xl"
-            alt="Icon"
-        />
 
-        <p class="text-xl py-6">
-            {{ church.address }}
-        </p>
+		<div
+			class="py-10 text-center">{# <div class="inline-block sm:pt-1">
+																									                <h2 class="font-bold">
+																									                    Created by: Heitor
+																									                </h2>
+																									
+																									                <p class="text-sm text-gray-600">
+																									                    28-01-2022 4 min. read
+																									                </p>
+																									            </div> #}
+		</div>
 
-        <a 
-            href="/churches/edit/{{ church.id }}"
-            class="bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300">
-            Edit Church
-        </a>
+		<img src="https://admin.inpeaceapp.com/app/img/inpeace_logo.png" class="mx-auto rounded-xl shadow-xl object-center" alt="Icon" width="500"/>
 
-        <a 
-            href="/churches/delete/{{ church.id }}"
-            class="bg-red-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-red-300">
-            Delete Church
-        </a>
-    </div>
+		<p class="text-xl pt-6">
+			<strong>Address:</strong>
+			{{ church.address }}
+		</p>
+		<p class="text-xl">
+			<strong>Website:</strong>
+			{{ church.website }}
+		</p>
+
+		<h2 class="text-center">Members ({{church.members|length}})
+		</h2>
+
+		<div class="flex justify-end ...">
+			<div>
+				<a href="/churches/{{ church.id }}/addmember " class="bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300">
+					<i class="fa fa-user-plus"></i>
+					Add Member
+				</a>
+			</div>
+		</div>
+
+		{% if church.members|length > 0 %}
+			<div class="w-96 md:grid lg:grid-cols-1 gap-20 w-4/5 mx-auto py-15">
+				<div class="w-96 pt-8 pb-4 ">
+					<table>
+						<tr class="text-left">
+							<th>Name</th>
+							<th class="pl-4">E-mail</th>
+							<th class="pl-4">Actions</th>
+						</tr>
+						{% for member in church.members %}
+							<tr>
+								<td>
+									<a href="/members/{{member.id}}">
+										{{ member.name }}
+									</a>
+								</td>
+								<td class="pl-4">{{ member.email }}</td>
+								<td class="pl-4 whitespace-nowrap">
+									<a href="/members/{{member.id}}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
+										<i class="fa fa-eye"></i>
+									</a>
+									<a href="/members/edit/{{member.id}}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
+										<i class="fa fa-user-edit"></i>
+									</a>
+									<a href="/members/delete/{{member.id}}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
+										<i class="fa fa-trash"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		{% else %}
+			<p class="text-center">This church has no members yet.</p>
+
+		{% endif %}
+
+	</div>
 {% endblock %}
