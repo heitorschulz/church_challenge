@@ -57,88 +57,89 @@
 
        symfony console make:controller MembersController
 
+. 
 
-symfony console debug:router
+       symfony console debug:router
 
-composer require twig
+       composer require twig
 
-composer require symfony/orm-pack
+       composer require symfony/orm-pack
 
-composer require --dev symfony/maker-bundle [no, yes]
-
-
-in .env file:
-
-    DATABASE_URL='mysql://prodUser:ProdPass123&@127.0.0.1:3306/movies?serverVersion=5.7'
-
-!!!!!!! Mudar para variáveis de ambiente...
-#################
-
-symfony console doctrine:database:create
+       composer require --dev symfony/maker-bundle [no, yes]
 
 
-symfony console make:entity Church
+       in .env file:
 
-Explicar a escolha dos campos
+       DATABASE_URL='mysql://prodUser:ProdPass123&@127.0.0.1:3306/movies?serverVersion=5.7'
 
-symfony console make:entity Member
+       !!!!!!! Mudar para variáveis de ambiente...
+       #################
 
-Explicar a escolha dos campos
-
-
-symfony console make:entity Member
-    church
-    ManyToMany or ManyToOne (explicar por que foi escolhido ManyToOne)
-    Church
-    members
-    yes
-
-symfony console make:migration
-symfony console doctrine:migrations:migrate
+       symfony console doctrine:database:create
 
 
-composer require --dev doctrine/doctrine-fixtures-bundle
+       symfony console make:entity Church
 
-symfony console doctrine:fixtures:load
+       Explicar a escolha dos campos
 
+       symfony console make:entity Member
 
-npm
-
-composer require symfony/webpack-encore-bundle
-
-npm install
-
-npm run dev
-
-composer require symfony/asset
-
-npm run watch
+       Explicar a escolha dos campos
 
 
+       symfony console make:entity Member
+       church
+       ManyToMany or ManyToOne (explicar por que foi escolhido ManyToOne)
+       Church
+       members
+       yes
 
-npm install -D tailwindcss postcss-loader purgecss-webpack-plugin glob-all path
-
-configurar o postcss para requisitar o tailwindcss
-
-npx tailwindcss init -p
-
-npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css --watch
-
-
-npm install file-loader --save-dev
-
-npm install --save-dev postcss-import
-npm install --save-dev autoprefixer
+       symfony console make:migration
+       symfony console doctrine:migrations:migrate
 
 
-composer require symfony/form
+       composer require --dev doctrine/doctrine-fixtures-bundle
 
-symfony console make:form ChurchFormType Church
-
-composer require symfony/mime
+       symfony console doctrine:fixtures:load
 
 
-npm install --save-dev @fortawesome/fontawesome-free
+       npm
+
+       composer require symfony/webpack-encore-bundle
+
+       npm install
+
+       npm run dev
+
+       composer require symfony/asset
+
+       npm run watch
 
 
-composer require symfony/validator doctrine/annotations
+
+       npm install -D tailwindcss postcss-loader purgecss-webpack-plugin glob-all path
+
+       configurar o postcss para requisitar o tailwindcss
+
+       npx tailwindcss init -p
+
+       npx tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css --watch
+
+
+       npm install file-loader --save-dev
+
+       npm install --save-dev postcss-import
+       npm install --save-dev autoprefixer
+
+
+       composer require symfony/form
+
+       symfony console make:form ChurchFormType Church
+
+       composer require symfony/mime
+
+
+       npm install --save-dev @fortawesome/fontawesome-free
+
+
+       composer require symfony/validator doctrine/annotations
