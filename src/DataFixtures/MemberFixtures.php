@@ -38,7 +38,6 @@ class MemberFixtures extends Fixture
 
         $manager->persist($member2);
 
-
         $manager->flush();
     }
 }

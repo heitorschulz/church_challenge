@@ -1,21 +1,71 @@
 {% extends "./base.html.twig" %}
 
+{% block javascripts %}
+	{# {{ encore_entry_script_tags('app') }} #}
+	{{ encore_entry_script_tags('api_IBGE') }}
+{% endblock %}
+
+
 {% block body %}
-<div class="w-4/5 m-auto pt-40">
-    <h1 class="text-6xl text-center pb-12">
-        Add Member
-    </h1>
+	<div class="w-4/5 m-auto pt-40">
+		<h1 class="text-6xl text-center pb-12">
+			Add Member
+		</h1>
 
-    {{ form_start(form) }}
+		{{ form_start(form) }}
 
-        {{ form_widget(form) }}
-        
-        <button
-            type="submit"
-            class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-            Submit Post
-        </button>
+		{# {{ form_widget(form) }} #}
 
-    {{ form_end(form) }}
-</div>
+		<div class="form-row align-items-end grid grid-cols-3 gap-4">
+			<div class="col">
+				{{form_row(form.name)}}
+			</div>
+			{# <div class="col form-control">
+				<i class="fa fa-calendar"></i> {{ form_label(form.name) }}
+				{{ form_widget(form.name) }}
+
+				<small>{{ form_help(form.name) }}</small>
+
+				<div class="form-error">
+					{{ form_errors(form.name) }}
+				</div>
+			</div> #}
+			<div class="col">
+				{{form_row(form.CPF)}}
+			</div>
+			<div class="col">
+				{{form_row(form.birthday)}}
+			</div>
+			<div class="col">
+				{{form_row(form.email)}}
+			</div>
+			<div class="col">
+				{{form_row(form.telephone)}}
+			</div>
+			<div class="col">
+				{{form_row(form.address)}}
+			</div>
+            {# <div class="col">
+                <select id="member_form_city" name="member_form[city]"></select>
+            </div>
+            <div class="col">
+                <select id="member_form_state" name="member_form[state]"></select>
+            </div> #}
+			<div class="col">
+				{{form_row(form.city)}}
+			</div>
+			<div class="col">
+				{{form_row(form.state)}}
+			</div>
+		</div>
+
+		<input type="hidden" name="referer" 
+		value="{{app.request.headers.get('referer')}}"/>
+
+		<button type="submit" class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+			Send
+		</button>
+
+		{{ form_end(form) }}
+	</div>
 {% endblock %}

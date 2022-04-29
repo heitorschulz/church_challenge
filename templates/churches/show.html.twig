@@ -7,9 +7,15 @@
 			{{ church.name }}
 		</h1>
 
-		<div class="flex justify-end ...">
+		<div class="flex justify-end mt-5">
 			<div>
-				<a href="/churches/edit/{{ church.id }}" class="bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300">
+				<a href="/churches/{{ church.id }}/addmember " class="bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300">
+					<i class="fa fa-user-plus"></i>
+					Add Member
+				</a>
+			</div>
+			<div>
+				<a href="/churches/edit/{{ church.id }}" class="bg-yellow-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-yellow-300">
 					<i class="fa fa-edit"></i>
 					Edit Church
 				</a>
@@ -22,20 +28,7 @@
 			</div>
 		</div>
 
-
-		<div
-			class="py-10 text-center">{# <div class="inline-block sm:pt-1">
-																									                <h2 class="font-bold">
-																									                    Created by: Heitor
-																									                </h2>
-																									
-																									                <p class="text-sm text-gray-600">
-																									                    28-01-2022 4 min. read
-																									                </p>
-																									            </div> #}
-		</div>
-
-		<img src="https://admin.inpeaceapp.com/app/img/inpeace_logo.png" class="mx-auto rounded-xl shadow-xl object-center" alt="Icon" width="500"/>
+		<img src="https://admin.inpeaceapp.com/app/img/inpeace_logo.png" class="mx-auto rounded-xl shadow-xl object-center mt-5" alt="Icon" width="500"/>
 
 		<p class="text-xl pt-6">
 			<strong>Address:</strong>
@@ -48,15 +41,6 @@
 
 		<h2 class="text-center">Members ({{church.members|length}})
 		</h2>
-
-		<div class="flex justify-end ...">
-			<div>
-				<a href="/churches/{{ church.id }}/addmember " class="bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300">
-					<i class="fa fa-user-plus"></i>
-					Add Member
-				</a>
-			</div>
-		</div>
 
 		{% if church.members|length > 0 %}
 			<div class="w-96 md:grid lg:grid-cols-1 gap-20 w-4/5 mx-auto py-15">
@@ -82,7 +66,7 @@
 									<a href="/members/edit/{{member.id}}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
 										<i class="fa fa-user-edit"></i>
 									</a>
-									<a href="/members/delete/{{member.id}}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
+									<a href="/churches/{{ church.id }}/removemember/{{ member.id }}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
 										<i class="fa fa-trash"></i>
 									</a>
 								</td>

@@ -7,6 +7,7 @@ use App\Entity\Member;
 use App\Form\MemberFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,16 +49,16 @@ class MembersController extends AbstractController
     }
 
 
-    #[Route('/members/create/{id}', name: 'create_member')]
-    public function create($id, Request $request): Response
+    #[Route('/members/create', name: 'create_member')]
+    public function create(Request $request): Response
     {
 
-        $repositoryChurch = $this->em->getRepository(Church::class); 
-        $church = $repositoryChurch->find($id);
+        // $repositoryChurch = $this->em->getRepository(Church::class); 
+        // $church = $repositoryChurch->find($id);
 
 
         $member = new Member();
-        $member->setChurch($church);
+        // $member->setChurch($church);
 
         $form = $this->createForm(MemberFormType::class, $member);
 
@@ -71,16 +72,13 @@ class MembersController extends AbstractController
             // dd($newChurch);
             // exit;
 
-            return $this->redirectToRoute('show_churches',['id' => $church->getId()]);
+            return $this->redirectToRoute('app_members');
         }
-
 
         return $this->render('churches/create.html.twig', [
             'form' => $form->createView()
         ]);
     }
-
-
 
 
     #[Route('/members/edit/{id}', name: 'edit_member')]
@@ -96,11 +94,26 @@ class MembersController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $member->setName($form->get('name')->getData());
-            // $member->setWebsite($form->get('website')->getData());
-            // $member->setAddress($form->get('address')->getData());
+            $member->setCPF($form->get('CPF')->getData());
+            $member->setBirthday($form->get('birthday')->getData());
+            $member->setEmail($form->get('email')->getData());
+            $member->setTelephone($form->get('telephone')->getData());
+            $member->setAddress($form->get('address')->getData());
+            $member->setCity($form->get('city')->getData());
+            $member->setState($form->get('state')->getData());
 
             $this->em->flush();
-            return $this->redirectToRoute('app_members');
+
+            $referer = $request->request->get('referer');
+            if ($referer == NULL) {
+                return $this->redirectToRoute('app_churches');
+            } else {
+                return $this->redirect($request->request->get('referer'));
+            }
+
+
+            
+            // return $this->redirectToRoute('app_members');
         }
 
 
@@ -119,7 +132,14 @@ class MembersController extends AbstractController
         $this->em->remove($member);
         $this->em->flush();
 
-        return $this->redirectToRoute('app_members');
+        return $this->redirectToRoute('app_churches');
+
+        // return $this->redirectToRoute('app_members');
+       
+        // return new JsonResponse(array(
+        //     'status' => 'success',
+        //     'message' => 'MEMBER_DELETED_SUCCESS'
+        // ));
 
     }
 }

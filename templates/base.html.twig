@@ -11,8 +11,9 @@
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{# {{ encore_entry_link_tags('app') }} #}
-			<link rel="stylesheet" href="{{ asset('build/app.css') }}">
-			{# <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> #}
+			<link
+			rel="stylesheet" href="{{ asset('build/app.css') }}">
+		{# <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> #}
 		{% endblock %}
 
 		{% block javascripts %}
@@ -24,8 +25,8 @@
 		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
 	</head>
 	{# <body>
-	        {% block body %}{% endblock %}
-	    </body> #}
+		        {% block body %}{% endblock %}
+		    </body> #}
 
 	<body class="bg-gray-100 h-screen antialiased leading-none font-sans">
 		{% block header %}
@@ -35,7 +36,7 @@
 					<div class="flex items-center flex-shrink-0 text-white mr-6">
 						<a class="text-white no-underline hover:text-white hover:no-underline" href="/">
 							<span class="text-2xl pl-2 font-extrabold">
-								Churches
+								Church Challenge (Inpeace)
 							</span>
 						</a>
 					</div>
@@ -53,11 +54,11 @@
 					<div class="w-full flex-grow lg:flex lg:items-center lg:w-auto" :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" @click.away="isOpen = false" x-show.transition="true">
 
 						<ul class="pt-6 lg:pt-0 list-reset lg:flex justify-end flex-1 items-center">
-							<li class="mr-3">
+							{# <li class="mr-3">
 								<a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/" @click="isOpen = false">
 									Home
 								</a>
-							</li>
+							</li> #}
 
 							<li class="mr-3">
 								<a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/churches" @click="isOpen = false">Churches
@@ -65,10 +66,15 @@
 							</li>
 
 							<li class="mr-3">
+								<a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/members" @click="isOpen = false">Members
+								</a>
+							</li>
+
+							{# <li class="mr-3">
 								<a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/contact" @click="isOpen = false">
 									Contact
 								</a>
-							</li>
+							</li> #}
 						</ul>
 					</div>
 				</nav>

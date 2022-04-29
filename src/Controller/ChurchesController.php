@@ -23,6 +23,7 @@ class ChurchesController extends AbstractController
         $this->em = $em;
     }
 
+    #[Route('/', methods:['GET'], name: 'homepage')]
     #[Route('/churches', methods:['GET'], name: 'app_churches')]
     public function index(): Response
     {
@@ -30,14 +31,8 @@ class ChurchesController extends AbstractController
         $repository = $this->em->getRepository(Church::class);
         $churches = $repository->findAll();
 
-        // dd($churches);
-
         return $this->render('churches/index.html.twig', array('title' => 'Churches Page', 'churches' => $churches));
 
-        // return $this->json([
-        //     'message' => 'Welcome to your new controller!',
-        //     'path' => 'src/Controller/ChurchesController.php',
-        // ]);
     }
 
 
@@ -54,9 +49,6 @@ class ChurchesController extends AbstractController
             $this->em->persist($newChurch);
             $this->em->flush();
 
-            // dd($newChurch);
-            // exit;
-
             return $this->redirectToRoute('app_churches');
         }
 
@@ -72,9 +64,6 @@ class ChurchesController extends AbstractController
     {
         $repository = $this->em->getRepository(Church::class);
         $church = $repository->find($id);
-
-        // $members = $church->getMembers()->getValues();
-        // dd($members);
 
         return $this->render('churches/show.html.twig', array('title' => 'Church Page', 'church' => $church));
 
@@ -113,11 +102,44 @@ class ChurchesController extends AbstractController
         $repository = $this->em->getRepository(Church::class);
         $church = $repository->find($id);
 
+        foreach ($church->getMembers() as &$member) {
+            $this->em->remove($member);
+        }
+
         $this->em->remove($church);
         $this->em->flush();
 
         return $this->redirectToRoute('app_churches');
 
+    }
+
+    private function verificaCPF($cpf): bool{
+
+        $array_cpf = str_split($cpf);
+
+        $soma = 0;
+
+        for ($i = 0; $i <= 8; $i++) {
+            $soma = $soma + ((int)$array_cpf[$i] * (10 - $i));
+        }
+
+        $digito1 = $soma*10%11;
+
+        if($digito1 == (int)$array_cpf[9]){
+            
+            $soma = 0;
+
+            for ($i = 0; $i <= 9; $i++) {
+                $soma = $soma + ((int)$array_cpf[$i] * (11 - $i));
+            }
+            
+            $digito2 = $soma*10%11;
+
+            if($digito2 == (int)$array_cpf[10]){
+                return true;
+            }
+        }
+        return false;
     }
 
     #[Route('/churches/{id}/addmember', name: 'add_member')]
@@ -136,41 +158,41 @@ class ChurchesController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $newMember = $form->getData();
 
-            $this->em->persist($newMember);
-            $this->em->flush();
+            if($this->verificaCPF($newMember->getCPF())){
 
-            // dd($newChurch);
-            // exit;
-
-            return $this->redirectToRoute('show_churches',['id' => $church->getId()]);
+                $this->em->persist($newMember);
+                $this->em->flush();
+    
+                // return $this->redirectToRoute('show_churches',['id' => $church->getId()]);
+                return $this->redirect($request->request->get('referer'));
+            }
+            else{
+                return new Response('Invalid CPF!');
+            }
         }
-
 
         return $this->render('members/create.html.twig', [
             'form' => $form->createView()
         ]);
-
-
-        // $church = new Church();
-        // $form = $this->createForm(ChurchFormType::class, $church);
-
-        // $form->handleRequest($request);
-        // if($form->isSubmitted() && $form->isValid()){
-        //     $newChurch = $form->getData();
-
-        //     $this->em->persist($newChurch);
-        //     $this->em->flush();
-
-        //     // dd($newChurch);
-        //     // exit;
-
-        //     return $this->redirectToRoute('app_churches');
-        // }
-
-
-        // return $this->render('churches/create.html.twig', [
-        //     'form' => $form->createView()
-        // ]);
     }
+
+    #[Route('/churches/{id}/removemember/{id_member}', name: 'remove_member')]
+    public function removeMember($id, $id_member, Request $request): Response
+    {
+        $repositoryChurch = $this->em->getRepository(Church::class); 
+        $church = $repositoryChurch->find($id);
+
+        $repository = $this->em->getRepository(Member::class);
+        $member = $repository->find($id_member);
+
+        $church->removeMember($member);
+
+        $this->em->remove($member);
+        $this->em->flush();
+
+        return $this->redirectToRoute('show_churches',['id' => $church->getId()]);
+
+    }
+
 
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MemberRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
 class Member
@@ -14,27 +15,58 @@ class Member
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     private $name;
 
     #[ORM\Column(type: 'string', length: 11)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=11)
+    */
     private $CPF;
 
     #[ORM\Column(type: 'datetime')]
+    /**
+    * @Assert\NotBlank
+    */
     private $birthday;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     private $email;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     private $address;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     private $city;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+    * @Assert\NotBlank
+    * @Assert\Length(min=1)
+    */
     private $state;
 
     #[ORM\ManyToOne(targetEntity: Church::class, inversedBy: 'members')]

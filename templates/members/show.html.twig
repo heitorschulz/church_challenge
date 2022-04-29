@@ -1,1 +1,112 @@
 {% extends "./base.html.twig" %}
+
+{% block body %}
+	<div class="sm:w-3/5 w-4/5 mx-auto">
+
+		<h1 class="pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center">
+			{{ member.name }}
+		</h1>
+
+		<div class="flex justify-end mt-5">
+			<div>
+				<a href="/members/edit/{{ member.id }}" class="bg-yellow-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-yellow-300">
+					<i class="fa fa-edit"></i>
+					Edit Member
+				</a>
+			</div>
+			<div>
+				<a href="/members/delete/{{ member.id }}" class="bg-red-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-red-300">
+					<i class="fa fa-trash"></i>
+					Delete Member
+				</a>
+			</div>
+		</div>
+
+        <h2 class="text-xl">Member informations:</h2>
+        
+        <p class="text-xl pt-4">
+			<strong>CPF:</strong>
+			{{ member.CPF }}
+		</p>
+        <p class="text-xl pt-2">
+			<strong>Birthday:</strong>
+			{{ member.birthday|date('Y-m-d') }}
+		</p>
+        <p class="text-xl pt-2">
+			<strong>E-mail:</strong>
+			{{ member.email }}
+		</p>
+        <p class="text-xl pt-2">
+			<strong>Telephone:</strong>
+			{{ member.address }}
+		</p>
+        <p class="text-xl pt-2">
+			<strong>Address:</strong>
+			{{ member.address }}
+		</p>
+        <p class="text-xl pt-2">
+			<strong>City:</strong>
+			{{ member.city }}
+		</p>
+        <p class="text-xl pt-2">
+			<strong>State:</strong>
+			{{ member.state }}
+		</p>
+
+
+
+
+		{# <img src="https://admin.inpeaceapp.com/app/img/inpeace_logo.png" class="mx-auto rounded-xl shadow-xl object-center mt-5" alt="Icon" width="500"/>
+
+		<p class="text-xl pt-6">
+			<strong>Address:</strong>
+			{{ church.address }}
+		</p>
+		<p class="text-xl">
+			<strong>Website:</strong>
+			{{ church.website }}
+		</p>
+
+		<h2 class="text-center">Members ({{church.members|length}})
+		</h2>
+
+		{% if church.members|length > 0 %}
+			<div class="w-96 md:grid lg:grid-cols-1 gap-20 w-4/5 mx-auto py-15">
+				<div class="w-96 pt-8 pb-4 ">
+					<table>
+						<tr class="text-left">
+							<th>Name</th>
+							<th class="pl-4">E-mail</th>
+							<th class="pl-4">Actions</th>
+						</tr>
+						{% for member in church.members %}
+							<tr>
+								<td>
+									<a href="/members/{{member.id}}">
+										{{ member.name }}
+									</a>
+								</td>
+								<td class="pl-4">{{ member.email }}</td>
+								<td class="pl-4 whitespace-nowrap">
+									<a href="/members/{{member.id}}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
+										<i class="fa fa-eye"></i>
+									</a>
+									<a href="/members/edit/{{member.id}}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
+										<i class="fa fa-user-edit"></i>
+									</a>
+									<a href="/churches/{{ church.id }}/removemember/{{ member.id }}" class="uppercase border border-gray-500 text-lg py-1 px-2 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800" type="button">
+										<i class="fa fa-trash"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		{% else %}
+			<p class="text-center">This church has no members yet.</p>
+
+		{% endif %} #}
+
+	</div>
+{% endblock %}

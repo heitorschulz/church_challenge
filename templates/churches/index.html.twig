@@ -3,8 +3,8 @@
 {% block body %}
     <div class="w-4/5 m-auto text-center">
         <div class="py-12 border-b border-gray-200">
-            <h1 class="text-6xl pt-12 pb-8">
-                Churches CRUD ({{ churches|length }})
+            <h1 class="text-6xl pt-12">
+                Churches ({{ churches|length }})
             </h1>
 
             {# <span class="font-light text-gray-500 italic">
@@ -13,13 +13,23 @@
         </div>
     </div>
 
-    <div class="mx-auto w-4/5 my-8">
+    {# <div class="mx-auto w-4/5 my-8">
         <a 
             href="/churches/create" 
             class="uppercase border border-gray-500 text-lg py-4 px-6 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800">
             Add new church
         </a>
-    </div>
+    </div> #}
+
+    <div class="mx-auto w-4/5 my-8 flex justify-end mt-5">
+			<div>
+				<a href="/churches/create" class="bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300">
+					<i class="fa fa-edit"></i>
+					Add new church
+				</a>
+			</div>
+		</div>
+
     <div class="md:grid lg:grid-cols-3 gap-20 w-4/5 mx-auto py-15 ">
         <!-- Review Item -->
         {% for church in churches %}
@@ -37,6 +47,7 @@
                 <span class="text-gray-500">
                     Website: <span class="italic text-sm text-gray-800"> <a href="http://{{ church.website }}">{{ church.website }}</a></span>
                 </span>
+                <br>
                 <span class="text-gray-500">
                     Total Members: <span class="italic text-sm text-gray-800"> {{ church.members|length }} </span>
                 </span>
@@ -46,7 +57,7 @@
                 </p>
 
                 <a href="/churches/{{ church.id }}" class="uppercase border border-gray-500 text-gray-600 text-lg py-4 px-12 rounded transition transition-all hover:bg-gray-800 hover:text-white">
-                    View More
+                    View Details
                 </a>
             </div>
         {% endfor %}
